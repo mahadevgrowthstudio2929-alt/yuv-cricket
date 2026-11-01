@@ -1,0 +1,446 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+<title>YUV X CRICKET | Cricket Analysis</title>
+
+<meta name="description" content="YUV X CRICKET - Cricket insights, match analysis and trading discussions. Join our community.">
+
+<meta name="theme-color" content="#090907">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --gold: #f5cb69;
+    --gold2: #d99a30;
+    --dark: #090907;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+    background: var(--dark);
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+}
+
+body {
+    min-height: 100svh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    padding: 12px;
+    background:
+        radial-gradient(ellipse at 50% 15%, rgba(196,145,50,.16), transparent 48%),
+        radial-gradient(ellipse at 0% 100%, rgba(151,103,28,.12), transparent 45%),
+        #090907;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: .12;
+    background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size: 35px 35px;
+}
+
+.card {
+    position: relative;
+    width: 100%;
+    max-width: 410px;
+    min-height: min(700px, calc(100svh - 24px));
+    max-height: 760px;
+    border: 1px solid rgba(245,203,105,.32);
+    border-radius: 27px;
+    background: linear-gradient(155deg, #1b1911 0%, #100f0b 48%, #17130b 100%);
+    box-shadow:
+        0 0 45px rgba(214,159,55,.10),
+        inset 0 0 35px rgba(245,203,105,.035);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 25px 23px;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    top: -190px;
+    border-radius: 50%;
+    background: #dba941;
+    filter: blur(100px);
+    opacity: .20;
+    z-index: -1;
+}
+
+.card::after {
+    content: "";
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    bottom: -170px;
+    right: -80px;
+    border-radius: 50%;
+    background: #f0b94c;
+    filter: blur(85px);
+    opacity: .15;
+    z-index: -1;
+}
+
+.top-line {
+    position: absolute;
+    top: 0;
+    left: 15%;
+    width: 70%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #f5cb69, transparent);
+    box-shadow: 0 0 18px #f5cb69;
+}
+
+.badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    border-radius: 50px;
+    border: 1px solid rgba(245,203,105,.3);
+    background: rgba(245,203,105,.07);
+    color: #f4d48e;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.live-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #7ee5a0;
+    box-shadow: 0 0 10px #7ee5a0;
+    animation: pulse 1.4s infinite;
+}
+
+@keyframes pulse {
+    50% { opacity: .35; transform: scale(.75); }
+}
+
+.logo-box {
+    width: 116px;
+    height: 116px;
+    margin-top: 23px;
+    border-radius: 27px;
+    padding: 4px;
+    background: linear-gradient(145deg, #fff0b5, #d59a32, #755018);
+    box-shadow: 0 0 30px rgba(245,203,105,.23);
+    animation: float 4s ease-in-out infinite;
+}
+
+.logo-box img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    border-radius: 23px;
+    background: #17130b;
+}
+
+@keyframes float {
+    50% { transform: translateY(-6px); }
+}
+
+.brand {
+    margin-top: 22px;
+    text-align: center;
+}
+
+.brand h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(25px, 7vw, 34px);
+    font-weight: 900;
+    letter-spacing: 1px;
+    line-height: 1.2;
+    background: linear-gradient(110deg, #fff4c9, #e6b64f, #fff0b4, #bd8124);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 2px 12px rgba(236,183,76,.15));
+}
+
+.brand p {
+    color: #b7a77e;
+    font-size: 10px;
+    letter-spacing: 4px;
+    font-weight: 700;
+    margin-top: 9px;
+}
+
+.divider {
+    width: 75px;
+    height: 2px;
+    margin: 21px auto;
+    background: linear-gradient(90deg, transparent, #edbd59, transparent);
+}
+
+.description {
+    text-align: center;
+    max-width: 310px;
+}
+
+.description h2 {
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.4;
+    color: #fff7e4;
+}
+
+.description h2 span {
+    color: var(--gold);
+}
+
+.description p {
+    color: #aaa18c;
+    font-size: 12px;
+    line-height: 1.7;
+    margin-top: 9px;
+}
+
+.features {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
+    margin: 23px 0;
+}
+
+.feature {
+    padding: 13px 4px;
+    text-align: center;
+    border-radius: 13px;
+    border: 1px solid rgba(245,203,105,.16);
+    background: rgba(245,203,105,.045);
+}
+
+.feature .icon {
+    font-size: 19px;
+    margin-bottom: 7px;
+}
+
+.feature h3 {
+    font-size: 10px;
+    font-weight: 800;
+    color: #f0d69e;
+}
+
+.feature p {
+    color: #89816e;
+    font-size: 9px;
+    margin-top: 4px;
+}
+
+.join-btn {
+    width: 100%;
+    min-height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 11px;
+    border-radius: 14px;
+    text-decoration: none;
+    color: #171006;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    background: linear-gradient(110deg, #c68b2b, #ffe6a0, #e5b64e, #c68b2b);
+    background-size: 200% auto;
+    box-shadow: 0 6px 25px rgba(222,169,65,.24);
+    transition: .3s ease;
+    animation: shine 4s linear infinite;
+}
+
+@keyframes shine {
+    to { background-position: 200% center; }
+}
+
+.join-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(245,203,105,.4);
+}
+
+.join-btn:active {
+    transform: scale(.97);
+}
+
+.join-btn span {
+    font-size: 19px;
+}
+
+.note {
+    text-align: center;
+    color: #77705f;
+    font-size: 9px;
+    line-height: 1.5;
+    margin-top: 16px;
+    max-width: 310px;
+}
+
+.footer {
+    color: #796d54;
+    font-size: 9px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-top: 17px;
+}
+
+@media(max-height: 650px) {
+    .card {
+        padding: 15px 20px;
+    }
+
+    .logo-box {
+        width: 80px;
+        height: 80px;
+        margin-top: 13px;
+    }
+
+    .brand {
+        margin-top: 13px;
+    }
+
+    .divider {
+        margin: 12px auto;
+    }
+
+    .features {
+        margin: 13px 0;
+    }
+
+    .feature {
+        padding: 9px 3px;
+    }
+
+    .footer {
+        margin-top: 10px;
+    }
+
+    .note {
+        margin-top: 10px;
+    }
+}
+
+@media(max-width: 350px) {
+    .card {
+        padding: 17px 14px;
+    }
+
+    .brand h1 {
+        font-size: 24px;
+    }
+
+    .logo-box {
+        width: 90px;
+        height: 90px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="card">
+
+    <div class="top-line"></div>
+
+    <div class="badge">
+        <span class="live-dot"></span>
+        CRICKET INSIGHTS COMMUNITY
+    </div>
+
+    <div class="logo-box">
+        <img src="logo.png" alt="YUV X CRICKET Logo">
+    </div>
+
+    <div class="brand">
+        <h1>YUV X CRICKET</h1>
+        <p>ANALYSE • UNDERSTAND • DISCUSS</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <section class="description">
+        <h2>Think Beyond The <span>Game.</span></h2>
+        <p>
+            Get match insights, cricket analysis and
+            trading-related discussions in one community.
+        </p>
+    </section>
+
+    <section class="features">
+
+        <div class="feature">
+            <div class="icon">🏏</div>
+            <h3>Match Analysis</h3>
+            <p>Match Insights</p>
+        </div>
+
+        <div class="feature">
+            <div class="icon">📊</div>
+            <h3>Cricket Trends</h3>
+            <p>Game Research</p>
+        </div>
+
+        <div class="feature">
+            <div class="icon">⚡</div>
+            <h3>Live Updates</h3>
+            <p>Community</p>
+        </div>
+
+    </section>
+
+    <a class="join-btn"
+       href="https://t.me/+TAdWmsDWWK43ZjJl"
+       target="_blank"
+       rel="noopener noreferrer">
+
+        <span>✦</span>
+        JOIN THE COMMUNITY
+        <span>➜</span>
+
+    </a>
+
+    <p class="note">
+        Cricket analysis involves uncertainty. Trading involves
+        financial risk. Make informed and responsible decisions.
+    </p>
+
+    <div class="footer">
+        WELCOME TO YUV X CRICKET
+    </div>
+
+</main>
+
+</body>
+</html>
+```
